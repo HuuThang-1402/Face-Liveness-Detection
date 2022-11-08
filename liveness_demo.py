@@ -73,7 +73,7 @@ for video in videos:
             preds = model.predict(face)[0][1]
             prediction.append(preds)
 
-        confidence_score = sum(prediction)/len(prediction)
+        confidence_score = min(prediction)
 
     except:
         confidence_score = 0
@@ -85,5 +85,5 @@ for video in videos:
 df = pd.DataFrame(columns=['fname', 'liveness_score'])
 df['fname'] = video_names
 df['liveness_score'] = predictions
-df.to_csv("predict.csv", index = False)
+df.to_csv("predict.csv", index_col = False)
         

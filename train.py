@@ -2,7 +2,7 @@
 import matplotlib
 matplotlib.use("Agg")
 # import the necessary packages
-from pyimagesearch.livenessnet import LivenessNet
+from livenessnet import LivenessNet
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
@@ -31,7 +31,7 @@ args = vars(ap.parse_args())
 # initialize the initial learning rate, batch size, and number of
 # epochs to train for
 INIT_LR = 1e-4
-BS = 32
+BS = 64
 EPOCHS = 50
 # grab the list of images in our dataset directory, then initialize
 # the list of data (i.e., images) and class images
@@ -61,7 +61,7 @@ labels = to_categorical(labels, 2)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
 (trainX, testX, trainY, testY) = train_test_split(data, labels,
-	test_size=0.25, random_state=42)
+	test_size=0.2, random_state=42)
 
 # construct the training image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=20, zoom_range=0.15,

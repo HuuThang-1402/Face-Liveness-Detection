@@ -25,9 +25,9 @@ def make_data(args):
         video_name = os.path.basename(video)
         cls = label[label['fname'] == video_name]['liveness_score'].values[0]
         if cls == 0:
-            shutil.copy(video_name, cls_fake_path)
+            shutil.copy('train/videos/'+video_name, cls_fake_path)
         else:
-            shutil.copy(video_name, cls_real_path)
+            shutil.copy('train/videos/'+video_name, cls_real_path)
 
 
 if __name__ == '__main__':

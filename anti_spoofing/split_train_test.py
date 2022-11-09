@@ -10,6 +10,8 @@ def split_data(args):
 
     os.makedirs(args.root +'/train' + posCls)
     os.makedirs(args.root +'/train' + negCls)
+    os.makedirs(args.root +'/val' + posCls)
+    os.makedirs(args.root +'/val' + negCls)
     os.makedirs(args.root +'/test' + posCls)
     os.makedirs(args.root +'/test' + negCls)
 
@@ -20,19 +22,26 @@ def split_data(args):
 
         allFileNames = os.listdir(src)
         np.random.shuffle(allFileNames)
-        train_FileNames, test_FileNames = np.split(np.array(allFileNames),[int(len(allFileNames)*0.8)])
+        # train_FileNames, test_FileNames = np.split(np.array(allFileNames),[int(len(allFileNames)*0.8)])
+        train_FileNames, val_FileNames, test_FileNames = np.split(np.array(allFileNames),
+                                                          [int(len(allFileNames)*0.7), int(len(allFileNames)*0.85)])
 
 
         train_FileNames = [src+'/'+ name for name in train_FileNames.tolist()]
+        val_FileNames = [src+'/'+ name for name in val_FileNames.tolist()]
         test_FileNames = [src+'/' + name for name in test_FileNames.tolist()]
 
         print('Total images: ', len(allFileNames))
         print('Training: ', len(train_FileNames))
+        print('Validation: ', len(val_FileNames))
         print('Testing: ', len(test_FileNames))
 
         # Copy-pasting images
         for name in train_FileNames:
             shutil.copy(name, args.root+"/train"+currentCls)
+
+        for name in val_FileNames:
+            shutil.copy(name, args.root+"/val"+currentCls)
 
         for name in test_FileNames:
             shutil.copy(name, args.root+"/test"+currentCls)

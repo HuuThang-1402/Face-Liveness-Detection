@@ -18,7 +18,7 @@ def make_data(args):
         for video in tqdm(list_video):
             idx = extract_frame(video, i, idx, args.skip)
 
-        for vid in glob.glob(i+"*.mp4"):
+        for vid in glob(i+"*.mp4"):
             os.remove(vid)
 
         print(f"Number of video on folder {i}:",len(glob(i+"*mp4")))
